@@ -10,14 +10,14 @@ $codigosErrorSubida= [
     8 => 'Una extensión PHP evito la subida del archivo'  // extensión PHP
 ];
 
-define ('dir_subida','C:\Users\Arantzazu\Desktop\imgusers');
+define ('dir_subida','C:\xampp\htdocs\phpa\subidaFichero\imgusers');
 
 if(isset($_FILES['archivo1']['name'])&&!empty($_FILES['archivo1']['name'][0])){
     $arrayFicheros=$_FILES['archivo1'];
     $numArchivos = $_FILES['archivo1']['name'];
     $tamanio=array_sum( $_FILES['archivo1']['size']);
     $mensaje = '';
-    if(($numArchivos>=2 && $tamanio >300000)||($numArchivos==1 && $tamanio>200000)){
+   if((count($numArchivos)>=2 && $tamanio >300000)||(count($numArchivos)==1 && $tamanio>200000)){
         $mensaje= '<span style=" color :red;">'.$codigosErrorSubida[2];
     }else{
         $mensaje .= '<b>Procesando subida de archivos :  </b><br/>';
@@ -53,7 +53,7 @@ function comprobarSistArchivo($nombreFichero){
 function subirArchivo($nombreFichero,$temporalFichero) {
     if ( is_dir(dir_subida) && is_writable (dir_subida)) {
         if(!file_exists(dir_subida .'/'. $nombreFichero) && move_uploaded_file($temporalFichero,  dir_subida .'/'. $nombreFichero)){
-            $mensaje = '<span style=" color :green;">Archivo ha sido subido con exito. </span><br/>';
+            $mensaje = '<span style=" color :green;">Archivo ha sido subido con exito . </span><br/>';
         }else{
             $mensaje='<span style=" color :red;">El archivo '.$nombreFichero." ya existe</span> <br/>";
         }
