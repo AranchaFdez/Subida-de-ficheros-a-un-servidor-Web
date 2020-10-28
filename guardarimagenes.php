@@ -53,7 +53,7 @@ function comprobarSistArchivo($nombreFichero){
 function subirArchivo($nombreFichero,$temporalFichero) {
     if ( is_dir(dir_subida) && is_writable (dir_subida)) {
         if(!file_exists(dir_subida .'/'. $nombreFichero) && move_uploaded_file($temporalFichero,  dir_subida .'/'. $nombreFichero)){
-            $mensaje = '<span style=" color :green;">Archivo ha sido subido con exito: </span><br/>';
+            $mensaje = '<span style=" color :green;">Archivo ha sido subido con exito. </span><br/>';
         }else{
             $mensaje='<span style=" color :red;">El archivo '.$nombreFichero." ya existe</span> <br/>";
         }
