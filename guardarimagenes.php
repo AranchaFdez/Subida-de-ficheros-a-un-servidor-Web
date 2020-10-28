@@ -10,7 +10,7 @@ $codigosErrorSubida= [
     8 => 'Una extensión PHP evito la subida del archivo'  // extensión PHP
 ];
 
-define ('dir_subida','C:\xampp\htdocs\phpa\subidaFichero\imgusers');
+define ('dir_subida','C:\Users\Arantzazu\Desktop\imgusers');
 
 if(isset($_FILES['archivo1']['name'])&&!empty($_FILES['archivo1']['name'][0])){
     $arrayFicheros=$_FILES['archivo1'];
