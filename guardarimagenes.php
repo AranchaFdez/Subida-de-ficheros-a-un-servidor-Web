@@ -14,14 +14,14 @@ define ('dir_subida','C:\Users\Arantzazu\Desktop\imgusers');
 
 if(isset($_FILES['archivo1']['name'])&&!empty($_FILES['archivo1']['name'][0])){
     $arrayFicheros=$_FILES['archivo1'];
-    $numArchivos = $_FILES['archivo1']['name'];
+    $numArchivos = count($_FILES['archivo1']['name']);
     $tamanio=array_sum( $_FILES['archivo1']['size']);
     $mensaje = '';
-   if((count($numArchivos)>=2 && $tamanio >300000)||(count($numArchivos)==1 && $tamanio>200000)){
+    if(($numArchivos>=2 && $tamanio >300000)||($numArchivos==1 && $tamanio>200000)){
         $mensaje= '<span style=" color :red;">'.$codigosErrorSubida[2];
     }else{
-        $mensaje .= '<b>Procesando subida de archivos :  </b><br/>';
-        for($i=0;$i<count($numArchivos);$i++){
+        $mensaje = '<b>Procesando subida de archivos :  </b><br/>';
+        for($i=0;$i<$numArchivos;$i++){
             if(!empty($arrayFicheros['name'][$i])&& isset($arrayFicheros['name'][$i])){
                 $nombreFichero   =   $arrayFicheros['name'][$i];
                 $errorFichero    =   $arrayFicheros['error'][$i];
@@ -38,7 +38,6 @@ if(isset($_FILES['archivo1']['name'])&&!empty($_FILES['archivo1']['name'][0])){
                 }
             }
         }
-        
     }
 }
 function comprobarSistArchivo($nombreFichero){
