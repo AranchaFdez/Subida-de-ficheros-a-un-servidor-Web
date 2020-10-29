@@ -17,15 +17,18 @@ if(isset($_FILES['archivo1']['name'])){
     $numArchivos = count($_FILES['archivo1']['name']);
     $tamanio=array_sum( $_FILES['archivo1']['size']);
     $mensaje = '';
+    //si el num archivos es 2 o mas y tiene mas 300kb o si es uno y es mayor que 200kb saltara el error
     if(($numArchivos>=2 && $tamanio >300000)||($numArchivos==1 && $tamanio>200000)){
         $mensaje= '<span style=" color :red;">'.$codigosErrorSubida[2];
     }else{
+        //procesamos los archivos y almacenamos los datos en variables
         $mensaje = '<b>Procesando subida de archivos :  </b><br/>';
         for($i=0;$i<$numArchivos;$i++){
             $nombreFichero   =   $arrayFicheros['name'][$i];
             $errorFichero    =   $arrayFicheros['error'][$i];
             $temporalFichero =   $arrayFicheros['tmp_name'][$i];
             $mensaje .= "- Nombre: $nombreFichero" . ' <br/>';
+            //comprobamos si hay errores
               if ($errorFichero > 0) {
                   $mensaje.='<span style=" color :red;">'.$codigosErrorSubida[$errorFichero].'<br>';
               }else{
@@ -38,6 +41,10 @@ if(isset($_FILES['archivo1']['name'])){
           }
      }
 }
+/*los sist. de archivos validos los almacenamos en un array
+*if comprobamos si el nombre del archivo contiene los sist.archivos almacenados en el array
+*strts equivale a lastindexOf en java 
+*/
 function comprobarSistArchivo($nombreFichero){
     $sistemaArchivos=[".jpg",".png"];
     for($i=0;$i<count($sistemaArchivos);$i++){
@@ -47,6 +54,9 @@ function comprobarSistArchivo($nombreFichero){
     }
     return false;
 }
+/*comprobamos si la constate declarada es un directorio y tiene permisos de escritura
+*si es asi, comprobamos si existe el fichero/imagen y lo movemos del fichero temp.
+*/
 function subirArchivo($nombreFichero,$temporalFichero) {
     if ( is_dir(dir_subida) && is_writable (dir_subida)) {
         if(!file_exists(dir_subida .'/'. $nombreFichero) && move_uploaded_file($temporalFichero,  dir_subida .'/'. $nombreFichero)){
@@ -99,7 +109,7 @@ function subirArchivo($nombreFichero,$temporalFichero) {
             </form>
         </div>
        		<div id="cuerpo">
-                <?php   if(!empty($mensaje)){
+                <?php   if(!empty($mensaje)){ //si la variable mensaje no esta vacia muestra mensaje
                             echo '<p style="text-align:center;">'.$mensaje."<br>";} ?>
             </div> 
     </div>
