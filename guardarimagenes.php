@@ -25,23 +25,21 @@ if(isset($_FILES['archivo1']['name'])&&!empty($_FILES['archivo1']['name'][0])){
     }else{
         $mensaje = '<b>Procesando subida de archivos :  </b><br/>';
         for($i=0;$i<$numArchivos;$i++){
-            if(!empty($arrayFicheros['name'][$i])&& isset($arrayFicheros['name'][$i])){
-                $nombreFichero   =   $arrayFicheros['name'][$i];
-                $errorFichero    =   $arrayFicheros['error'][$i];
-                $temporalFichero =   $arrayFicheros['tmp_name'][$i];
-                $mensaje .= "- Nombre: $nombreFichero" . ' <br/>';
-                if ($errorFichero > 0) {
-                    $mensaje.=$codigosErrorSubida[$errorFichero].'<br>';
-                }else{
-                    if(comprobarSistArchivo($nombreFichero)){
-                        $mensaje.=subirArchivo($nombreFichero,$temporalFichero);
-                    }else{
-                        $mensaje.='<span style=" color :red;">No se acepta ese sistema de archivo </span><br>';
+            $nombreFichero   =   $arrayFicheros['name'][$i];
+            $errorFichero    =   $arrayFicheros['error'][$i];
+            $temporalFichero =   $arrayFicheros['tmp_name'][$i];
+            $mensaje .= "- Nombre: $nombreFichero" . ' <br/>';
+              if ($errorFichero > 0) {
+                  $mensaje.=$codigosErrorSubida[$errorFichero].'<br>';
+              }else{
+                 if(comprobarSistArchivo($nombreFichero)){
+                     $mensaje.=subirArchivo($nombreFichero,$temporalFichero);
+                 }else{
+                     $mensaje.='<span style=" color :red;">No se acepta ese sistema de archivo </span><br>';
                     }
                 }
-            }
-        }
-    }
+          }
+     }
 }
 function comprobarSistArchivo($nombreFichero){
     $sistemaArchivos=[".jpg",".png"];
