@@ -11,15 +11,12 @@ $codigosErrorSubida= [
 ];
 //declaramos una constante para la ruta de la carpeta a la que hemos dado todos los permisos 
 define ('dir_subida','C:\Users\Arantzazu\Desktop\imgusers');
-//si esta declarada el  nombre del archivo y no esta vacio 
-if(isset($_FILES['archivo1']['name'])&&!empty($_FILES['archivo1']['name'][0])){
+
+if(isset($_FILES['archivo1']['name'])){
     $arrayFicheros=$_FILES['archivo1'];
     $numArchivos = count($_FILES['archivo1']['name']);
     $tamanio=array_sum( $_FILES['archivo1']['size']);
     $mensaje = '';
-    /*si el num de archivos es 2 o mas y supera el tamaño de 300000 o si es un archivo de +200000 da error
-    sino entra a procesar los datos de $Files
-    */
     if(($numArchivos>=2 && $tamanio >300000)||($numArchivos==1 && $tamanio>200000)){
         $mensaje= '<span style=" color :red;">'.$codigosErrorSubida[2];
     }else{
@@ -30,7 +27,7 @@ if(isset($_FILES['archivo1']['name'])&&!empty($_FILES['archivo1']['name'][0])){
             $temporalFichero =   $arrayFicheros['tmp_name'][$i];
             $mensaje .= "- Nombre: $nombreFichero" . ' <br/>';
               if ($errorFichero > 0) {
-                  $mensaje.=$codigosErrorSubida[$errorFichero].'<br>';
+                  $mensaje.='<span style=" color :red;">'.$codigosErrorSubida[$errorFichero].'<br>';
               }else{
                  if(comprobarSistArchivo($nombreFichero)){
                      $mensaje.=subirArchivo($nombreFichero,$temporalFichero);
